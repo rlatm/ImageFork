@@ -4,8 +4,8 @@
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
-// @version     1.5
-// @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
+// @version     1.6
+// @downloadURL https://rawgit.com/plsankar1996/ImageFork/master/ImageFork.user.js
 // @grant       none
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @run-at      document-start
@@ -68,6 +68,7 @@ var replaces = {
 
 var elemtntsToDeal = [
     'form[method=POST] input[type=submit]',
+    'meta[property*="og:image"]',
     'img#iimg',
     '#show_image',
     'img[src*="/uploads/big/"]',
@@ -80,7 +81,7 @@ var elemtntsToDeal = [
     ".pic"
 ];
 
-var elemtntsToRemove = 'head, header,#header,.header, script, noscript, meta, link, style, .menu, #menu, .logo, #logo, ul, li, footer, #footer, .footer, iframe, frame, #popup';
+var elemtntsToRemove = 'header,#header,.header, script, noscript, link, style, .menu, #menu, .logo, #logo, ul, li, footer, #footer, .footer, iframe, frame, #popup';
 
 for (var i = redirects.items.length - 1; i >= 0; i--) {
     if (href.indexOf(redirects.items[i].find) > -1) {
@@ -103,9 +104,9 @@ window.addEventListener('beforescriptexecute', function(e) {
 $(elemtntsToRemove).remove();
 
 $(function() {
-    
+
     $(elemtntsToRemove).remove();
-    
+
     for (var i = elemtntsToDeal.length - 1; i >= 0; i--) {
         var el = $(elemtntsToDeal[i]);
         if (el.length) {
@@ -115,6 +116,8 @@ $(function() {
                 open(el.attr('href'));
             } else if (el.is('input')) {
                 el.click();
+            } else if (el.is('meta')) {
+                open(el.attr('content'));
             }
             break;
         }
