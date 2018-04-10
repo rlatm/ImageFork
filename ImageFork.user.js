@@ -5,7 +5,7 @@
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
 // @version     1.5
-// @downloadURL https://rawgit.com/plsankar1996/ImageFork/master/ImageFork.user.js
+// @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
 // @grant       none
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @run-at      document-start
