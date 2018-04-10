@@ -4,8 +4,8 @@
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
-// @version     1.6
-// @downloadURL https://rawgit.com/plsankar1996/ImageFork/master/ImageFork.user.js
+// @version     1.7
+// @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
 // @grant       none
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @run-at      document-start
@@ -26,6 +26,8 @@
 // @include     *://*.imghost.top/*
 // @include     *://imgking.xyz/*
 // @include     *://imgazure.com/*
+// @include     *://imgur.com/*
+// @include     *://imgtorrnt.in/view.php?id=*
 // @exclude     */images/*
 // @exclude     */img/*
 // @exclude     */images-*
@@ -47,6 +49,9 @@ var redirects = {
     }, {
         find: "pixsense.net/r/site/v/",
         replace: "imgfile.net/site/v/"
+    }, {
+        find: "imgtorrnt.in/view.php?id=",
+        replace: "i.imgur.com/"
     }]
 };
 
@@ -63,25 +68,29 @@ var replaces = {
     }, {
         find: "p.jpeg",
         replace: ".jpeg"
+    }, {
+        find: "?fb",
+        replace: ""
     }]
 };
 
 var elemtntsToDeal = [
     'form[method=POST] input[type=submit]',
     'meta[property*="og:image"]',
-    'img#iimg',
-    '#show_image',
-    'img[src*="/uploads/big/"]',
-    'img[src*="/upload/big/"]',
-    '.code_image',
-    'img[src*="/wp-content/uploads/"]',
-    'a:has(img#myUniqueImg)',
+    'img[src*="' + host + '/uploads/big/"]',
+    'img[src*="' + host + '/upload/big/"]',
     'img[src*="' + host + '/img/"]',
     'img[src*="' + host + '/images/"]',
+    'img[src*="' + host + '/wp-content/uploads/"]',
+    'img#iimg',
+    'img#myImg',
+    '#show_image',
+    '.code_image',
+    'a:has(img#myUniqueImg)',
     ".pic"
 ];
 
-var elemtntsToRemove = 'header,#header,.header, script, noscript, link, style, .menu, #menu, .logo, #logo, ul, li, footer, #footer, .footer, iframe, frame, #popup';
+var elemtntsToRemove = 'header, #header, .header, script, noscript, link, style, .menu, #menu, .logo, #logo, ul, li, footer, #footer, .footer, iframe, frame, #popup, .ads,#ads, .navbar';
 
 for (var i = redirects.items.length - 1; i >= 0; i--) {
     if (href.indexOf(redirects.items[i].find) > -1) {
@@ -90,22 +99,22 @@ for (var i = redirects.items.length - 1; i >= 0; i--) {
     }
 }
 
+removeExtra();
+
 document.addEventListener('beforeload', function(event) {
-    $(elemtntsToRemove).remove();
+    removeExtra();
 }, true);
 
 window.addEventListener('beforescriptexecute', function(e) {
     e.stopPropagation();
     e.preventDefault();
-    $(elemtntsToRemove).remove();
     $(e.target).remove();
+    removeExtra();
 }, true);
-
-$(elemtntsToRemove).remove();
 
 $(function() {
 
-    $(elemtntsToRemove).remove();
+    removeExtra();
 
     for (var i = elemtntsToDeal.length - 1; i >= 0; i--) {
         var el = $(elemtntsToDeal[i]);
@@ -129,4 +138,10 @@ function open(url) {
         url = url.replace(replaces.items[i].find, replaces.items[i].replace);
     }
     window.location.assign(url);
+}
+
+function removeExtra() {
+    $(elemtntsToRemove).each(function() {
+        $(this).remove();
+    });
 }
