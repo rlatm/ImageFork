@@ -4,7 +4,7 @@
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
-// @version     1.7
+// @version     1.7.2
 // @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
 // @grant       none
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
@@ -22,12 +22,15 @@
 // @include     *://imagetwist.com/*
 // @include     *://imgskull.*
 // @include     *://imghall.com/?v=*
-// @include     *://www.imagepearl.com/*
-// @include     *://*.imghost.top/*
 // @include     *://imgking.xyz/*
 // @include     *://imgazure.com/*
 // @include     *://imgur.com/*
 // @include     *://imgtorrnt.in/view.php?id=*
+// @include     *://www.imagepearl.com/*
+// @include     *://*.imghost.top/*
+// @include     *://*.imagevenue.com/img.php?*
+// @include     *://xxxhost.me/viewer.php?file=*
+// @include     *://imgmercy.com/*
 // @exclude     */images/*
 // @exclude     */img/*
 // @exclude     */images-*
@@ -52,6 +55,9 @@ var redirects = {
     }, {
         find: "imgtorrnt.in/view.php?id=",
         replace: "i.imgur.com/"
+    }, {
+        find: "xxxhost.me/viewer.php?file=",
+        replace: "xxxhost.me/files/"
     }]
 };
 
@@ -75,7 +81,6 @@ var replaces = {
 };
 
 var elemtntsToDeal = [
-    'form[method=POST] input[type=submit]',
     'meta[property*="og:image"]',
     'img[src*="' + host + '/uploads/big/"]',
     'img[src*="' + host + '/upload/big/"]',
@@ -84,13 +89,17 @@ var elemtntsToDeal = [
     'img[src*="' + host + '/wp-content/uploads/"]',
     'img#iimg',
     'img#myImg',
+    '.centred',
+    '.centred_resized',
     '#show_image',
     '.code_image',
+    '#thepic',
     'a:has(img#myUniqueImg)',
-    ".pic"
+    ".pic",
+    'form[method=POST] input[type=submit]'
 ];
 
-var elemtntsToRemove = 'header, #header, .header, script, noscript, link, style, .menu, #menu, .logo, #logo, ul, li, footer, #footer, .footer, iframe, frame, #popup, .ads,#ads, .navbar';
+var elemtntsToRemove = 'header, #header, .header, script, noscript, link, style, .menu, #menu, .logo, #logo, ul, li,.login_cuerpo, footer, #footer, .footer, iframe, frame, #popup, .ads,#ads, .navbar';
 
 for (var i = redirects.items.length - 1; i >= 0; i--) {
     if (href.indexOf(redirects.items[i].find) > -1) {
@@ -121,16 +130,20 @@ $(function() {
         if (el.length) {
             if (el.is('img')) {
                 open(el.attr('src'));
+                break;
             } else if (el.is('a')) {
                 open(el.attr('href'));
+                break;
             } else if (el.is('input')) {
                 el.click();
+                break;
             } else if (el.is('meta')) {
                 open(el.attr('content'));
+                break;
             }
-            break;
         }
     }
+
 });
 
 function open(url) {
