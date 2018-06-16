@@ -26,7 +26,6 @@
          }
          .control-panel {
          width: 360px;
-         padding: 8% 0 0;
          margin: auto;
          position: relative;
          z-index: 1;
@@ -36,7 +35,12 @@
          text-align: center;
          box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
          }
-         .controls {
+         .control-panel-tite {
+    padding: 20px 0px 20px 0px;
+    font-size: 30px;
+    border-bottom: 2px solid #76b852;
+}
+        .controls {
          padding: 45px;        
          }
          button.big {
@@ -61,13 +65,13 @@
    </head>
    <body>
       <div class="control-panel">
-         <div class="control-panel-tite">
-            Config
-         </div>
-         <div class="controls">   
-            <button class="big" id="showweblog">SHOW WEBSITES LOG</button>
-            <button class="big" id="clearweblog">CLEAR WEBSITES LOG</button>
-         </div>
+      <div class="control-panel-tite">
+               Config
+           </div>    
+           <div class="controls">   
+         <button class="big" id="showweblog">SHOW WEBSITES LOG</button>
+         <button class="big" id="clearweblog">CLEAR WEBSITES LOG</button>
+         </div> 
       </div>
    </body>
 </html>
