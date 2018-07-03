@@ -8,13 +8,16 @@ This script makes images viewing sites simpler
 
 - avenuexxx.com
 - blobopics.biz
+- cc.pornscreen.xyz 
 - damimage.com
+- hdmoza.com 
 - iceimg.net
-- imagedecode.com
+- imagedecode.com 
 - imagepearl.com
 - imagespicy.site
-- imagetwist.com
+- imagetwist.com 
 - img.yt
+- imgazure.com 
 - imgclick.net
 - imgdrive.net
 - imgfile.net
@@ -22,12 +25,18 @@ This script makes images viewing sites simpler
 - imghall.com
 - imghere.net
 - imghost.top
+- imgjazz.com 
 - imgking.xyz
+- imgseed.com
 - imgskull.*
+- imgsmarts.info 
 - imgstudio.org
 - imgtornado.com
 - picfox.org
 - pixsense.net
+- sxpix.nl
+- www.iceimg.net
+- www.imgfile.net
 - xxxscreens.com
 - xxxwebdlxxx.org
 
