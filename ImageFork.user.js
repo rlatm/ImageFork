@@ -4,7 +4,7 @@
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
-// @version     1.8
+// @version     1.9
 // @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
 // @grant       GM_setValue
 // @grant       GM_getValue
