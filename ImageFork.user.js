@@ -164,11 +164,8 @@ $(function() {
         }
 
     } else {
-        $('#showsitesblog').click(function(event) {
-            $('.control-panel textarea').remove();
-            $('.control-panel').append('<textarea></textarea>');
-            $('.control-panel textarea').val(GM_getValue(sites, host));
-        });
+        $('textarea').val('');
+$('textarea').val(GM_getValue(sites, host));
 
         $('#clearsiteslog').click(function(event) {
             GM_setValue(sites, '');
