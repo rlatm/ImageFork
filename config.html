@@ -58,15 +58,18 @@
          cursor: pointer;
          margin: 10px 0px;
          }
+
          button.big:hover,button.bign:active,button.big:focus {
          background: #43A047;
          }
          
-         textarea {
-    width: 100%;
-    height: 200px;
+textarea {
+    width: 100% !important;
+    height: 200px !important;
 }
       </style>
+
+
    </head>
    <body>
       <div class="control-panel">
@@ -74,8 +77,9 @@
                Config
            </div>    
            <div class="controls">   
-         <button class="big" id="showweblog">SHOW WEBSITES LOG</button>
-         <button class="big" id="clearweblog">CLEAR WEBSITES LOG</button>
+         <button class="big" id="showsiteslog">SHOW WEBSITES LOG</button>
+         <button class="big" id="copysiteslog">COPY WEBSITES LOG</button>
+         <button class="big" id="clearsiteslog">CLEAR WEBSITES LOG</button>
               <textarea></textarea>
          </div> 
       </div>
