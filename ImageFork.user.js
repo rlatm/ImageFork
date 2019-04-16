@@ -4,11 +4,13 @@
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
-// @version     1.7.2
+// @version     1.8
 // @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
-// @grant       none
+// @grant       GM_setValue
+// @grant       GM_getValue
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @run-at      document-start
+// @include     *://plsankar1996.github.io/ImageFork/config.html
 // @include     */img-*.html
 // @include     */imgs-*.html
 // @include     */imgv-*.html
@@ -25,19 +27,28 @@
 // @include     *://imgking.xyz/*
 // @include     *://imgazure.com/*
 // @include     *://imgur.com/*
+// @include     *://shaggyimg.pro/*
 // @include     *://imgtorrnt.in/view.php?id=*
 // @include     *://www.imagepearl.com/*
 // @include     *://*.imghost.top/*
 // @include     *://*.imagevenue.com/img.php?*
 // @include     *://xxxhost.me/viewer.php?file=*
+// @include     *://imgsmarts.info/*
+// @include     *://picbaron.com/*
+// @include     *://imgbaron.com/*
 // @include     *://imgmercy.com/*
-// @exclude     */images/*
+// @include     *://dailyimages.xyz/*
+// @exclude     */images/*.jpg
 // @exclude     */img/*
 // @exclude     */images-*
+// @match     *://trans.firm.in/*
 // ==/UserScript==
 
 var href = window.location.href;
 var host = window.location.hostname;
+var sites = 'sites';
+var $ = window.jQuery;
+var iscontrolpage = host == 'plsankar1996.github.io';
 
 var redirects = {
     items: [{
@@ -101,47 +112,82 @@ var elemtntsToDeal = [
 
 var elemtntsToRemove = 'header, #header, .header, script, noscript, link, style, .menu, #menu, .logo, #logo, ul, li,.login_cuerpo, footer, #footer, .footer, iframe, frame, #popup, .ads,#ads, .navbar';
 
-for (var i = redirects.items.length - 1; i >= 0; i--) {
-    if (href.indexOf(redirects.items[i].find) > -1) {
-        window.location.assign(href.replace(redirects.items[i].find, redirects.items[i].replace));
-        break;
+if (!iscontrolpage) {
+
+    saveWebsiteToList();
+
+    for (var i = redirects.items.length - 1; i >= 0; i--) {
+        if (href.indexOf(redirects.items[i].find) > -1) {
+            window.location.assign(href.replace(redirects.items[i].find, redirects.items[i].replace));
+            break;
+        }
     }
+
+    removeExtra();
+
+    document.addEventListener('beforeload', function(event) {
+        removeExtra();
+    }, true);
+
+    window.addEventListener('beforescriptexecute', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        $(e.target).remove();
+        removeExtra();
+    }, true);
+
 }
-
-removeExtra();
-
-document.addEventListener('beforeload', function(event) {
-    removeExtra();
-}, true);
-
-window.addEventListener('beforescriptexecute', function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    $(e.target).remove();
-    removeExtra();
-}, true);
 
 $(function() {
 
-    removeExtra();
+    if (!iscontrolpage) {
 
-    for (var i = elemtntsToDeal.length - 1; i >= 0; i--) {
-        var el = $(elemtntsToDeal[i]);
-        if (el.length) {
-            if (el.is('img')) {
-                open(el.attr('src'));
-                break;
-            } else if (el.is('a')) {
-                open(el.attr('href'));
-                break;
-            } else if (el.is('input')) {
-                el.click();
-                break;
-            } else if (el.is('meta')) {
-                open(el.attr('content'));
-                break;
+        removeExtra();
+
+        for (var i = elemtntsToDeal.length - 1; i >= 0; i--) {
+            var el = $(elemtntsToDeal[i]);
+            if (el.length) {
+                if (el.is('img')) {
+                    open(el.attr('src'));
+                    break;
+                } else if (el.is('a')) {
+                    open(el.attr('href'));
+                    break;
+                } else if (el.is('input')) {
+                    el.click();
+                    break;
+                } else if (el.is('meta')) {
+                    open(el.attr('content'));
+                    break;
+                }
             }
         }
+
+    } else {
+        $('#showsitesblog').click(function(event) {
+            $('.control-panel textarea').remove();
+            $('.control-panel').append('<textarea></textarea>');
+            $('.control-panel textarea').val(GM_getValue(sites, host));
+        });
+
+        $('#clearsiteslog').click(function(event) {
+            GM_setValue(sites, '');
+            alert("Clead!");
+        });
+
+        $('#copysiteslog').click(function(event) {
+            var textArea = $("textarea");
+            textArea.focus();
+            textArea.select();
+
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'successful' : 'unsuccessful';
+                console.log('Copying text command was ' + msg);
+            } catch (err) {
+                console.error('Oops, unable to copy', err);
+            }
+        });
     }
 
 });
@@ -157,4 +203,9 @@ function removeExtra() {
     $(elemtntsToRemove).each(function() {
         $(this).remove();
     });
+}
+
+function saveWebsiteToList() {
+    var list = GM_getValue(sites, host) + '\n' + host;
+    GM_setValue(sites, list);
 }
