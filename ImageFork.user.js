@@ -4,10 +4,11 @@
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
-// @version     1.9
+// @version     1.9.1
 // @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
 // @grant       GM_setValue
 // @grant       GM_getValue
+// @grant       GM_setClipboard
 // @require     https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @run-at      document-start
 // @include     *://plsankar1996.github.io/ImageFork/config.html
@@ -165,25 +166,15 @@ $(function() {
 
     } else {
         $('textarea').val('');
-$('textarea').val(GM_getValue(sites, host));
+        $('textarea').val(GM_getValue(sites, host));
 
         $('#clearsiteslog').click(function(event) {
             GM_setValue(sites, '');
             alert("Clead!");
         });
 
-        $('#copysiteslog').click(function(event) {
-            var textArea = $("textarea");
-            textArea.focus();
-            textArea.select();
-
-            try {
-                var successful = document.execCommand('copy');
-                var msg = successful ? 'successful' : 'unsuccessful';
-                console.log('Copying text command was ' + msg);
-            } catch (err) {
-                console.error('Oops, unable to copy', err);
-            }
+        $('#copysiteslog').click(function(event) {           
+            GM_setClipboard($("textarea").val(), 'text');
         });
     }
 
