@@ -6,8 +6,8 @@ This script makes images viewing sites simpler
 
 ## Supported Sites
 
--avenuexxx.com
--blobopics.biz
+- avenuexxx.com
+- blobopics.biz
 -cc.pornscreen.xyz
 -dailyimages.xyz
 -damimage.com
