@@ -4,7 +4,7 @@
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
-// @version     1.9.1
+// @version     1.9.2
 // @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -39,6 +39,7 @@
 // @include     *://imgbaron.com/*
 // @include     *://imgmercy.com/*
 // @include     *://dailyimages.xyz/*
+// @include     *://imgspice.com/*
 // @exclude     */images/*.jpg
 // @exclude     */img/*
 // @exclude     */images-*
@@ -173,7 +174,7 @@ $(function() {
             alert("Clead!");
         });
 
-        $('#copysiteslog').click(function(event) {           
+        $('#copysiteslog').click(function(event) {
             GM_setClipboard($("textarea").val(), 'text');
         });
     }
@@ -194,6 +195,10 @@ function removeExtra() {
 }
 
 function saveWebsiteToList() {
-    var list = GM_getValue(sites, host) + '\n' + host;
+    var list = GM_getValue(sites, host);
+    if (list.indexOf(host) != -1) {
+        return;
+    }
+    list = list + '\n' + host;
     GM_setValue(sites, list);
 }
