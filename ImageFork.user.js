@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        ImageFork
-// @description This script makes images viewing key_siteLog simpler
+// @description This script makes browsing images hosting sites easier
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
