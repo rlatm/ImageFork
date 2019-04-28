@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <title>
-         Config ImageFork
-      </title>
-      <style type="text/css">
-         body {
+    <head>
+        <title>
+            Config ImageFork
+        </title>
+        <style type="text/css">
+            body {
          background: #76b852; /* fallback for old browsers */
          background: -webkit-linear-gradient(right, #76b852, #8DC26F);
          background: -moz-linear-gradient(right, #76b852, #8DC26F);
@@ -58,7 +58,6 @@
          cursor: pointer;
          margin: 10px 0px;
          }
-
          button.big:hover,button.bign:active,button.big:focus {
          background: #43A047;
          }
@@ -67,20 +66,42 @@ textarea {
     width: 100% !important;
     height: 200px !important;
 }
-      </style>
 
-
-   </head>
-   <body>
-      <div class="control-panel">
-      <div class="control-panel-tite">
-               Config
-           </div>    
-           <div class="controls">   
-         <button class="big" id="copysiteslog">COPY WEBSITES LOG</button>
-         <button class="big" id="clearsiteslog">CLEAR WEBSITES LOG</button>
-              <textarea readonly></textarea>
-         </div> 
-      </div>
-   </body>
+.alert {
+    margin: auto 0px;
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+        </style>
+    </head>
+    <body>
+        <center>
+            <div class="alert" id="install-alert">
+                <strong>
+                    It seems that ImageFork script is not installed or active,
+                    <a href="https://github.com/plsankar1996/ImageFork">
+                        see here for instructions
+                    </a>
+                    .
+                </strong>
+            </div>
+            <div class="control-panel" style="display: none;">
+                <div class="control-panel-tite">
+                    Config
+                </div>
+                <div class="controls">
+                    <button class="big" id="copysiteslog">
+                        COPY WEBSITES LOG
+                    </button>
+                    <button class="big" id="clearsiteslog">
+                        CLEAR WEBSITES LOG
+                    </button>
+                    <textarea readonly="">
+                    </textarea>
+                </div>
+            </div>
+        </center>
+    </body>
 </html>
