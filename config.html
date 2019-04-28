@@ -4,104 +4,65 @@
         <title>
             Config ImageFork
         </title>
+        <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+        </link>
         <style type="text/css">
-            body {
-         background: #76b852; /* fallback for old browsers */
-         background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-         background: -moz-linear-gradient(right, #76b852, #8DC26F);
-         background: -o-linear-gradient(right, #76b852, #8DC26F);
-         background: linear-gradient(to left, #76b852, #8DC26F);
-         font-family: "Roboto", sans-serif;
-         -webkit-font-smoothing: antialiased;
-         -moz-osx-font-smoothing: grayscale;      
-         }
-         h1 {
-         display: block;
-         font-size: 2em;
-         -webkit-margin-before: 0.67em;
-         -webkit-margin-after: 0.67em;
-         -webkit-margin-start: 0px;
-         -webkit-margin-end: 0px;
-         font-weight: bold;
-         }
-         .control-panel {
-         width: 360px;
-         margin: auto;
-         position: relative;
-         z-index: 1;
-         background: #FFFFFF;
-         max-width: 360px;
-         margin: 0 auto 100px;        
-         text-align: center;
-         box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-         }
-         .control-panel-tite {
-    padding: 20px 0px 20px 0px;
-    font-size: 30px;
-    border-bottom: 2px solid #76b852;
+            .container-fluid {
+    padding: 30px;
 }
-        .controls {
-         padding: 45px;        
-         }
-         button.big {
-         font-family: "Roboto", sans-serif;
-         text-transform: uppercase;
-         outline: 0;
-         background: #4CAF50;
-         width: 100%;
-         border: 0;
-         padding: 15px;
-         color: #FFFFFF;
-         font-size: 14px;
-         -webkit-transition: all 0.3 ease;
-         transition: all 0.3 ease;
-         cursor: pointer;
-         margin: 10px 0px;
-         }
-         button.big:hover,button.bign:active,button.big:focus {
-         background: #43A047;
-         }
+
          
 textarea {
     width: 100% !important;
     height: 200px !important;
 }
-
-.alert {
-    margin: auto 0px;
-    background-color: #fff;
-    padding: 15px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
         </style>
     </head>
     <body>
-        <center>
-            <div class="alert" id="install-alert">
-                <strong>
-                    It seems that ImageFork script is not installed or active,
-                    <a href="https://github.com/plsankar1996/ImageFork">
-                        see here for instructions
-                    </a>
-                    .
-                </strong>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="https://github.com/plsankar1996/ImageFork">
+                ImageFork
+            </a>
+        </nav>
+        <div class="container-fluid">
+            <div class="alert alert-danger" id="install-alert" role="alert">
+                It seems that ImageFork script is not installed or active,
+                <a class="alert-link" href="https://github.com/plsankar1996/ImageFork">
+                    see here for instructions
+                </a>
+                .
             </div>
-            <div class="control-panel" style="display: none;">
-                <div class="control-panel-tite">
-                    Config
+            <div id="config-content" class="d-none">
+                <div class="card text-center mb-3" id="control-panel">
+                <div class="card-header">
+                    Options
                 </div>
-                <div class="controls">
-                    <button class="big" id="copysiteslog">
+                <div class="card-body">
+                    <div class="form-group form-check">
+                        <input class="form-check-input" id="autoresize" type="checkbox">
+                            <label class="form-check-label" for="autoresize">
+                                Auto resize final image to its full size
+                            </label>
+                        </input>
+                    </div>
+                </div>
+            </div>
+            <div class="card text-center" id="site_log">
+                <div class="card-header">
+                    SiteLog
+                </div>
+                <div class="card-body" style="float: left;">
+                    <button class="btn btn-primary btn-sm" id="copysiteslog" style="float: left;">
                         COPY WEBSITES LOG
                     </button>
-                    <button class="big" id="clearsiteslog">
+                    <button class="btn btn-secondary btn-sm ml-3" id="clearsiteslog" style="float: left;">
                         CLEAR WEBSITES LOG
                     </button>
-                    <textarea readonly="">
+                    <textarea class="mt-3" readonly="">
                     </textarea>
                 </div>
             </div>
-        </center>
+            </div>
+        </div>
     </body>
 </html>
