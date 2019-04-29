@@ -4,7 +4,7 @@
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
-// @version     2.1
+// @version     2.1.1
 // @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -128,7 +128,13 @@ var elemtntsToDeal = [
     'form input[type=submit][value*="Continue"]'
 ];
 
-var elemtntsToRemove = 'script, noscript, link, style, header, #header, .header, img[src*="logo"], .brand, .menu, #menu, .logo, #logo, ul, li, .login_cuerpo, footer, #footer, .footer, iframe, frame, #popup, .ads,#ads, .navbar, .sidenav, textarea, #foot';
+var elemtntsToRemove =
+    'script, noscript, iframe, frame, #popup, .ads, #ads, ' +
+    'div[class*="ads"], div[class*="ad"], ' +
+    'link, style, ' +
+    'header, #header, .header, img[src*="logo"], .brand, .menu, #menu, .logo, #logo, .navbar, .sidenav, nav, .nav, #nav, ' +
+    'ul, li, textarea, ' +
+    'footer, #footer, .footer, #foot';
 
 if (href.lastIndexOf(host) + host.length - href.length == -1) {
     return false;
