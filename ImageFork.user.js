@@ -4,7 +4,7 @@
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
-// @version     2.0
+// @version     2.1
 // @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -17,6 +17,7 @@
 // @include     *://blobopics.biz/share-*
 // @include     *://avenuexxx.com/archives/*
 // @include     *://imgclick.net/*
+// @include     *://main.imgclick.net/*
 // @include     *://imggold.org/*
 // @include     *://imgchili.net/*
 // @include     *://imagetwist.com/*
@@ -40,12 +41,14 @@
 // @include     *://*.imgspice.com/*
 // @include     *://www.imagebam.com/*
 // @include     *://bustyimg.top/image/*
+// @include     *://trans.firm.in/*
+// @include     *://imguur.pictures/*
 // @include     */img-*.html
 // @include     */imgs-*.html
 // @include     */imgv-*.html
+// @include     */share-*.html
 // @include     */upload/big/20*
 // @include     */site/v/*
-// @include     *://trans.firm.in/*
 // ==/UserScript==
 
 const href = window.location.href;
@@ -56,6 +59,8 @@ const mutationObserver_Config = {
     childList: true,
     subtree: true
 };
+
+const observer = new MutationObserver(onDOMChange);
 
 const key_siteLog = 'key_siteLog';
 const key_autoResize = "key_autoResize";
@@ -119,39 +124,38 @@ var elemtntsToDeal = [
     '#thepic',
     'a:has(img#myUniqueImg)',
     ".pic",
-    'form[method=POST] input[type=submit]'
+    'form input[type=submit][value*="continue"]',
+    'form input[type=submit][value*="Continue"]'
 ];
 
-var elemtntsToRemove = 'script, noscript, link, style, header, #header, .header, .menu, #menu, .logo, #logo, ul, li, .login_cuerpo, footer, #footer, .footer, iframe, frame, #popup, .ads,#ads, .navbar, .sidenav, textarea, #foot';
+var elemtntsToRemove = 'script, noscript, link, style, header, #header, .header, img[src*="logo"], .brand, .menu, #menu, .logo, #logo, ul, li, .login_cuerpo, footer, #footer, .footer, iframe, frame, #popup, .ads,#ads, .navbar, .sidenav, textarea, #foot';
 
-//Main Page
 if (href.lastIndexOf(host) + host.length - href.length == -1) {
     return false;
 }
 
-//ImageOnly
 if (document.images.length == 1 && document.images[0].src == window.location.href) {
     if (autoResize) {
         document.images[0].width = document.images[0].naturalWidth;
         document.images[0].height = document.images[0].naturalHeight;
+        $('img').css( 'cursor', 'zoom-out' );
+	    $('img').css( 'cursor', '-webkit-zoom-out');
     }
     return false;
 }
 
 if (!iscontrolpage) {
 
-    document.title = "ImageFork Working...";
+    document.title += "- ImageFork";
 
     saveWebsiteToList();
 
     for (var i = redirects.items.length - 1; i >= 0; i--) {
         if (href.indexOf(redirects.items[i].find) > -1) {
             window.location.assign(href.replace(redirects.items[i].find, redirects.items[i].replace));
-            break;
+            return;
         }
     }
-
-    const observer = new MutationObserver(onDOMChange);
 
     observer.observe(document, mutationObserver_Config);
 
@@ -228,9 +232,9 @@ function onDOMChange(mutations) {
     for (var i = elemtntsToDeal.length - 1; i >= 0; i--) {
         var el = $(elemtntsToDeal[i]);
         console.log('Checking for DOM ' + elemtntsToDeal[i]);
-        console.log('Checking for DOM Exists : ' + el.length);
         if (el.length) {
             console.log('Element exists!');
+            observer.disconnect();
             if (el.is('img')) {
                 open(el.attr('src'));
                 break;
