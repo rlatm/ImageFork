@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name        ImageFork
-// @description This script makes browsing images hosting sites easier
+// @description Just browsing images!
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
-// @version     2.1.1
+// @version     2.6
 // @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -43,6 +43,7 @@
 // @include     *://bustyimg.top/image/*
 // @include     *://trans.firm.in/*
 // @include     *://imguur.pictures/*
+// @include     *://imgsee.net/*
 // @include     */img-*.html
 // @include     */imgs-*.html
 // @include     */imgv-*.html
@@ -108,10 +109,13 @@ var replaces = {
 };
 
 var elemtntsToDeal = [
+    '#imagefork',
     'input[type=submit]',
-    'meta[property*="og:image"]',
+    'meta[property*="og:image"]:not(meta[content*="logo"])',
     'img[src*="' + host + '/uploads/big/"]',
     'img[src*="' + host + '/upload/big/"]',
+    'img[src*="' + host + '/uploads/small/"]',
+    'img[src*="' + host + '/upload/small/"]',
     'img[src*="' + host + '/img/"]',
     'img[src*="' + host + '/images/"]',
     'img[src*="' + host + '/wp-content/uploads/"]',
@@ -124,14 +128,15 @@ var elemtntsToDeal = [
     '#thepic',
     'a:has(img#myUniqueImg)',
     ".pic",
+    'input[type=submit][value*="continue"]',
+    'input[type=submit][value*="Continue"]',
     'form input[type=submit][value*="continue"]',
     'form input[type=submit][value*="Continue"]'
 ];
 
 var elemtntsToRemove =
-    'script, noscript, iframe, frame, #popup, .ads, #ads, ' +
-    'div[class*="ads"], div[class*="ad"], ' +
-    'link, style, ' +
+    'script:not(script:contains("/themes/latest/uploads")), noscript, iframe, frame, link, style, ' +
+    '#popup, .ads, #ads, div[class*="ads"], div[class*="ad"], ' +
     'header, #header, .header, img[src*="logo"], .brand, .menu, #menu, .logo, #logo, .navbar, .sidenav, nav, .nav, #nav, ' +
     'ul, li, textarea, ' +
     'footer, #footer, .footer, #foot';
@@ -243,22 +248,34 @@ function onDOMChange(mutations) {
             observer.disconnect();
             if (el.is('img')) {
                 open(el.attr('src'));
-                break;
             } else if (el.is('a')) {
                 open(el.attr('href'));
-                break;
             } else if (el.is('input')) {
                 el.click();
-                break;
             } else if (el.is('meta')) {
                 open(el.attr('content'));
-                break;
             }
+            return;
         }
     }
+
+    pixsense_img();
 }
 
 
 function cleanDOM() {
     $(elemtntsToRemove).remove();
+}
+
+function pixsense_img() {
+    var img = $('img#imagefork');
+    if (img.length === 0) {
+        var script = $('script:contains("/themes/latest/uploads")');
+        if (script.length) {
+            var content = script.text();
+            var src = content.slice(content.lastIndexOf('").src = "'), content.indexOf('";'));
+            src = src.replace('").src = "', '');
+            $('body').append('<img id="imagefork" src="' + src + '"></img>');
+        }
+    }
 }
