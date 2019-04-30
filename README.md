@@ -68,5 +68,18 @@ This script makes images viewing sites simpler
 - xxx.sexex.xyz
 - xxxscreens.com
 - xxxwebdlxxx.org
+- www.imagebam.com
+- xxx.kodiak.top
+- bustyimg.top
+- sexsal.website
+- www.imagedecode.com
+- imageshtorm.com
+- xfap.fun
+- imagehorse.com
+- imguur.pictures
+- cc.pornimg.site
+- imgsee.net
+- i.imghost.top
+- imgplus.ru
 
 and many more!
