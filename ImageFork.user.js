@@ -4,7 +4,7 @@
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
-// @version     2.6
+// @version     2.7
 // @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -44,6 +44,10 @@
 // @include     *://trans.firm.in/*
 // @include     *://imguur.pictures/*
 // @include     *://imgsee.net/*
+// @include     *://imgfile.net/*
+// @include     *://*.imgfile.net/*
+// @include     *://imgmak.com/image/*
+// @include     *://extraimages.net/image/*
 // @include     */img-*.html
 // @include     */imgs-*.html
 // @include     */imgv-*.html
@@ -82,7 +86,9 @@ var redirects = {
         replace: "imgfile.net/site/v/"
     }, {
         find: "imgtorrnt.in/view.php?id=",
-        replace: "i.imgur.com/"
+        replace: "i.imgur.com/",
+        append: ".jpg",
+        prepend: "http://href.li/?"
     }, {
         find: "xxxhost.me/viewer.php?file=",
         replace: "xxxhost.me/files/"
@@ -120,6 +126,7 @@ var elemtntsToDeal = [
     'img[src*="' + host + '/images/"]',
     'img[src*="' + host + '/wp-content/uploads/"]',
     'img#iimg',
+    '#full_image',
     'img#myImg',
     '.centred',
     '.centred_resized',
@@ -135,7 +142,7 @@ var elemtntsToDeal = [
 ];
 
 var elemtntsToRemove =
-    'script:not(script:contains("/themes/latest/uploads")), noscript, iframe, frame, link, style, ' +
+    'script:not(script:contains("soDaBug")), noscript, iframe, frame, link, style, ' +
     '#popup, .ads, #ads, div[class*="ads"], div[class*="ad"], ' +
     'header, #header, .header, img[src*="logo"], .brand, .menu, #menu, .logo, #logo, .navbar, .sidenav, nav, .nav, #nav, ' +
     'ul, li, textarea, ' +
@@ -149,21 +156,27 @@ if (document.images.length == 1 && document.images[0].src == window.location.hre
     if (autoResize) {
         document.images[0].width = document.images[0].naturalWidth;
         document.images[0].height = document.images[0].naturalHeight;
-        $('img').css( 'cursor', 'zoom-out' );
-	    $('img').css( 'cursor', '-webkit-zoom-out');
     }
     return false;
 }
 
 if (!iscontrolpage) {
 
-    document.title += "- ImageFork";
+    document.title += " - ImageFork";
 
     saveWebsiteToList();
 
     for (var i = redirects.items.length - 1; i >= 0; i--) {
         if (href.indexOf(redirects.items[i].find) > -1) {
-            window.location.assign(href.replace(redirects.items[i].find, redirects.items[i].replace));
+            window.stop();
+            var newhref = href.replace(redirects.items[i].find, redirects.items[i].replace);
+            if (redirects.items[i].hasOwnProperty("append")) {
+                newhref = newhref + redirects.items[i].append;
+            }
+            if (redirects.items[i].hasOwnProperty("prepend")) {
+                newhref = redirects.items[i].prepend + newhref;
+            }
+            window.location.assign(newhref);
             return;
         }
     }
@@ -246,6 +259,7 @@ function onDOMChange(mutations) {
         if (el.length) {
             console.log('Element exists!');
             observer.disconnect();
+            window.stop();
             if (el.is('img')) {
                 open(el.attr('src'));
             } else if (el.is('a')) {
@@ -270,7 +284,7 @@ function cleanDOM() {
 function pixsense_img() {
     var img = $('img#imagefork');
     if (img.length === 0) {
-        var script = $('script:contains("/themes/latest/uploads")');
+        var script = $('script:contains("soDaBug")');
         if (script.length) {
             var content = script.text();
             var src = content.slice(content.lastIndexOf('").src = "'), content.indexOf('";'));
