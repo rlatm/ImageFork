@@ -4,7 +4,7 @@
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
-// @version     2.7
+// @version     2.8
 // @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -143,6 +143,7 @@ var elemtntsToDeal = [
 
 var elemtntsToRemove =
     'script:not(script:contains("soDaBug")), noscript, iframe, frame, link, style, ' +
+    'div[class*="login"] form, div[id*="login"] form, ' +
     '#popup, .ads, #ads, div[class*="ads"], div[class*="ad"], ' +
     'header, #header, .header, img[src*="logo"], .brand, .menu, #menu, .logo, #logo, .navbar, .sidenav, nav, .nav, #nav, ' +
     'ul, li, textarea, ' +
@@ -255,26 +256,33 @@ function onDOMChange(mutations) {
 
     for (var i = elemtntsToDeal.length - 1; i >= 0; i--) {
         var el = $(elemtntsToDeal[i]);
-        console.log('Checking for DOM ' + elemtntsToDeal[i]);
         if (el.length) {
-            console.log('Element exists!');
-            observer.disconnect();
-            window.stop();
             if (el.is('img')) {
+                observer.disconnect();
+                window.stop();
                 open(el.attr('src'));
             } else if (el.is('a')) {
+                observer.disconnect();
+                window.stop();
                 open(el.attr('href'));
             } else if (el.is('input')) {
+                observer.disconnect();
+                window.stop();
                 el.click();
             } else if (el.is('meta')) {
+                observer.disconnect();
+                window.stop();
                 open(el.attr('content'));
+            } else {
+                continue;
             }
-            return;
+            break;
         }
     }
 
     pixsense_img();
 }
+
 
 
 function cleanDOM() {
