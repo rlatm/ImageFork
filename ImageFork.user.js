@@ -4,7 +4,7 @@
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
-// @version     2.8
+// @version     2.9
 // @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -48,6 +48,8 @@
 // @include     *://*.imgfile.net/*
 // @include     *://imgmak.com/image/*
 // @include     *://extraimages.net/image/*
+// @include     *://imggmi.com/full/*
+// @include     *://imgbbb.com/image/*
 // @include     */img-*.html
 // @include     */imgs-*.html
 // @include     */imgv-*.html
@@ -56,20 +58,18 @@
 // @include     */site/v/*
 // ==/UserScript==
 
-const href = window.location.href;
-const host = window.location.hostname;
-var $ = window.jQuery;
-const iscontrolpage = host == 'plsankar1996.github.io';
-const mutationObserver_Config = {
-    childList: true,
-    subtree: true
-};
-
-const observer = new MutationObserver(onDOMChange);
-
-const key_siteLog = 'key_siteLog';
-const key_autoResize = "key_autoResize";
-var autoResize = GM_getValue(key_autoResize, false);
+var href = window.location.href,
+    host = window.location.hostname,
+    $ = window.jQuery,
+    iscontrolpage = "plsankar1996.github.io" == host,
+    mutationObserver_Config = {
+        childList: !0,
+        subtree: !0
+    },
+    observer = new MutationObserver(onDOMChange),
+    key_siteLog = "key_siteLog",
+    key_autoResize = "key_autoResize",
+    autoResize = GM_getValue(key_autoResize, !1);
 
 var redirects = {
     items: [{
@@ -133,6 +133,7 @@ var elemtntsToDeal = [
     '#show_image',
     '.code_image',
     '#thepic',
+    'img#image',
     'a:has(img#myUniqueImg)',
     ".pic",
     'input[type=submit][value*="continue"]',
@@ -163,7 +164,7 @@ if (document.images.length == 1 && document.images[0].src == window.location.hre
 
 if (!iscontrolpage) {
 
-    document.title += " - ImageFork";
+    document.title = "" == document.title ? "ImageFork" : document.title + " - ImageFork";
 
     saveWebsiteToList();
 
@@ -290,14 +291,12 @@ function cleanDOM() {
 }
 
 function pixsense_img() {
-    var img = $('img#imagefork');
-    if (img.length === 0) {
-        var script = $('script:contains("soDaBug")');
-        if (script.length) {
-            var content = script.text();
-            var src = content.slice(content.lastIndexOf('").src = "'), content.indexOf('";'));
-            src = src.replace('").src = "', '');
-            $('body').append('<img id="imagefork" src="' + src + '"></img>');
+    if (0 === $("img#imagefork").length) {
+        var a = $('script:contains("soDaBug")');
+        if (a.length) {
+            var b = a.text();
+            b = (b.slice(b.lastIndexOf('").src = "'), b.indexOf('";'))).replace('").src = "', '');
+            $(document.body).append('<img id="imagefork" src="' + b + '"></img>');
         }
     }
 }
