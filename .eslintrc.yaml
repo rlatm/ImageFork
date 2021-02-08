@@ -1,0 +1,48 @@
+---
+root: true
+env:
+  browser: true
+  greasemonkey: true
+# plugins:
+#   - prettier # Breaks '--fix' for me for *some* files
+extends:
+  # - 'eslint:recommended'
+  - "eslint:all"
+  # - airbnb-base
+  # - google
+  # - standard
+  - "plugin:eslint-comments/recommended"
+reportUnusedDisableDirectives: true
+parserOptions:
+  ecmaVersion:
+    # Write code & validate against the latest ecmaVersion, then use babel to
+    # transcompile to an appropriate version based on browserslist
+    2020
+rules:
+  brace-style:
+    - error
+    - allman
+  indent:
+    - error
+    - tab
+  multiline-comment-style:
+    - "off" # Because of the comment block at top of every userscript file
+  dot-location:
+    - "off"
+  func-names:
+    - "off"
+  function-call-argument-newline:
+    - error
+    - consistent
+  no-tabs:
+    - "off"
+  one-var:
+    - error
+    - initialized: never
+  padded-blocks:
+    - error
+    - never
+  wrap-iife:
+    - "off"
+  # prettier/prettier:
+  #   - error

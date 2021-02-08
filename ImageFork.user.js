@@ -4,299 +4,301 @@
 // @namespace   https://github.com/plsankar1996/ImageFork
 // @homepage    https://github.com/plsankar1996/ImageFork
 // @author      plsankar1996
-// @version     2.9
-// @downloadURL https://github.com/plsankar1996/ImageFork/raw/master/ImageFork.user.js
-// @grant       GM_setValue
-// @grant       GM_getValue
-// @grant       GM_registerMenuCommand
-// @grant       GM_setClipboard
-// @require     https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
+// @version     4.3
+// @require     https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @run-at      document-start
-// @include     *://plsankar1996.github.io/ImageFork/config.html
-// @include     *://picfox.org/share-*
-// @include     *://blobopics.biz/share-*
-// @include     *://avenuexxx.com/archives/*
+// @include     *://dailyimages.xyz/*.html
+// @include     *://shaggyimg.pro/*
+// @include     *://www.imgfile.net/*
+// @include     *://www.imgsky.net/*
+// @include     *://imgtorrnt.in/*
 // @include     *://imgclick.net/*
-// @include     *://main.imgclick.net/*
+// @include     *://imgbaron.com/*.html
+// @include     *://imagetwist.com/*
+// @include     *://imgur.com/*
+// @include     *://jerking.empornium.ph/image/*
+// @include     *://fapping.empornium.sx/image/*
+// @include     *://picpicture.com/image/*
+// @include     *://lookimg.com/image/*
+// @include     *://imgmak.com/image/*
+// @include     *://imgbbb.com/image/*
+// @include     *://extraimages.net/image/*
+// @include     *://bustyimg.top/image/*
+// @include     *://storepic.com/image/*
+// @include     *//extraimage.net/image/*
+// @include     *://xxxhost.me/viewer.php?file=*
+// @include     *://123poze.3x.ro/viewer.php?file=*
+// @include     *://freeimghosting.co.uk/viewer.php?file=*
+// @include     *://www.uploadking.biz/show.php/*
+// @include     *://hostpix.de/show.php*
+// @include     *://foto.xhost.lv/show*
+// @include     *://www.imgshots.com/show/*
+// @include     *://www.imagepearl.com/*
+// @include     *://picbaron.com/*
+// @include     *://imgmercy.com/*
+// @include     *://avenuexxx.com/archives/*
 // @include     *://imggold.org/*
 // @include     *://imgchili.net/*
-// @include     *://imagetwist.com/*
 // @include     *://imgskull.*
 // @include     *://imghall.com/?v=*
 // @include     *://imgking.xyz/*
 // @include     *://imgazure.com/*
-// @include     *://imgur.com/*
-// @include     *://shaggyimg.pro/*
-// @include     *://imgtorrnt.in/view.php?id=*
-// @include     *://www.imagepearl.com/*
 // @include     *://*.imghost.top/*
-// @include     *://*.imagevenue.com/img.php?*
-// @include     *://xxxhost.me/viewer.php?file=*
 // @include     *://imgsmarts.info/*
-// @include     *://picbaron.com/*
-// @include     *://imgbaron.com/*
-// @include     *://imgmercy.com/*
-// @include     *://dailyimages.xyz/*
 // @include     *://imgspice.com/*
 // @include     *://*.imgspice.com/*
 // @include     *://www.imagebam.com/*
-// @include     *://bustyimg.top/image/*
 // @include     *://trans.firm.in/*
 // @include     *://imguur.pictures/*
 // @include     *://imgsee.net/*
-// @include     *://imgfile.net/*
-// @include     *://*.imgfile.net/*
-// @include     *://imgmak.com/image/*
-// @include     *://extraimages.net/image/*
 // @include     *://imggmi.com/full/*
-// @include     *://imgbbb.com/image/*
+// @include     *://subefotos.com/*
+// @include     *your-pictures.net/p*
+// @include     *://www.turboimagehost.com/p/*
+// @include     *://1pic.org/view/*.html
+// @include     *://imagescanner.cc/images/*.html
+// @include     *://*.imagevenue.com/img.php?*
+// @include     *dumppix.com/viewer*
+// @include     *://www.imagestime.*/imageshow.php/*
+// @include     *://www.imagesnake.*/show*
+// @include     *://www.freebunker.*/show*
+// @include     *://www.imagefruit.*/show*
+// @include     *://www.imgcarry.*/show*
+// @include     *://www.pornbus.*/show*
+// @include     *://fotoo.*/show*
 // @include     */img-*.html
 // @include     */imgs-*.html
 // @include     */imgv-*.html
 // @include     */share-*.html
-// @include     */upload/big/20*
 // @include     */site/v/*
 // ==/UserScript==
 
-var href = window.location.href,
-    host = window.location.hostname,
-    $ = window.jQuery,
-    iscontrolpage = "plsankar1996.github.io" == host,
-    mutationObserver_Config = {
-        childList: !0,
-        subtree: !0
-    },
-    observer = new MutationObserver(onDOMChange),
-    key_siteLog = "key_siteLog",
-    key_autoResize = "key_autoResize",
-    autoResize = GM_getValue(key_autoResize, !1);
+"use strict";
 
-var redirects = {
-    items: [{
-        find: "/imgs-",
-        replace: "/imgv-"
-    }, {
-        find: "/?v=",
-        replace: "/images/"
-    }, {
-        find: "iceimg.net/site/v/",
-        replace: "imgfile.net/site/v/"
-    }, {
-        find: "pixsense.net/r/site/v/",
-        replace: "imgfile.net/site/v/"
-    }, {
-        find: "imgtorrnt.in/view.php?id=",
-        replace: "i.imgur.com/",
-        append: ".jpg",
-        prepend: "http://href.li/?"
-    }, {
-        find: "xxxhost.me/viewer.php?file=",
-        replace: "xxxhost.me/files/"
-    }]
-};
+var $ = window.jQuery,
+	href = window.location.href,
+	host = window.location.hostname,
+	observer = new MutationObserver(onDOMChange),
+	myObj = {
+		urlRedirects: [
+			{
+				find: /(\/imgs-)/gi,
+				replace: "/imgv-"
+			},
+			{
+				find: /\/i\?v=/gi,
+				replace: "/images/"
+			},
+			{
+				find: /(iceimg|pixsense)\.net\/site\/v\//gi,
+				replace: "imgfile.net/site/v/"
+			},
+			{
+				find: /(.*)(imgtorrnt\.in\/view\.php\?id=)(.*)/gi,
+				replace: "https://i.imgur.com/$3.jpg"
+			},
+			{
+				find: /(123poze\.3x\.ro|xxxhost\.me)(\/viewer.php\?file=)/gi,
+				replace: "$1/files/"
+			},
+			{
+				find: /(freeimghosting\.co\.uk)(\/viewer.php\?file=)/gi,
+				replace: "$1/images/"
+			}
+		],
+		imgReplaces: [
+			{
+				find: /(\?fb)/gim,
+				replace: ""
+			},
+			{
+				find: /(\.md\.|\.th\.)/gim,
+				replace: "."
+			},
+			{
+				find: /\/small\//gim,
+				replace: "/big/"
+			},
+			// What is an example use case for the below replacement?
+			// Disabling for now because it incorrectly catches and causes 404s
+			// for the format seen in real life:
+			// <host>/images/2020/05/30/<filename>thumbs.jpg
+			// {
+			// 	find: /thumb/gim,
+			// 	replace: "image"
+			// },
+			{
+				find: /p.jpeg/gim,
+				replace: ".jpeg"
+			}
+		],
+		elemtntsToDeal: [
+			'script:contains("soDaBug")',
+			'a[href*="imgtorrnt.in/view.php?id="]:eq(1)',
+			'meta[property*="og:image"]:not(meta[content*="logo"])',
+			'img[src*="' + host + '/uploads/big/"]',
+			'img[src*="' + host + '/upload/big/"]',
+			'img[src*="' + host + '/uploads/small/"]',
+			'img[src*="' + host + '/upload/small/"]',
+			'img[src*="' + host + '/img/"]',
+			'img[src*="' + host + '/images/"]',
+			'img[src*="' + host + '/images/20"]',
+			'img[src*="' + host + '/files/"]',
+			'img[src*="' + host + '/wp-content/uploads/"]',
+			"a.btn-download",
+			"img#img_obj",
+			"#uImage",
+			"a.lightbox",
+			"img#boring",
+			"img#iimg",
+			"#full_image",
+			"img#myImg",
+			".centred",
+			".centred_resized",
+			"#show_image",
+			".code_image",
+			"#thepic",
+			"img#image",
+			"a:has(img#myUniqueImg)",
+			"img.image-responsive",
+			".pic",
+			'input[type=submit][value*="continue"]',
+			'input[type=submit][value*="Continue"]',
+			'form input[type=submit][value*="continue"]',
+			'form input[type=submit][value*="Continue"]',
+			"#continuetoimage form input[type=submit]"
+		],
+		elemtntsToRemove:
+			'script:not(script:contains("soDaBug")), noscript, iframe, frame, link, style, video, ' +
+			'div[class*="login"] form, div[id*="login"] form, input[type=submit][value*="Rate"], ' +
+			'#popup, div[class*="ads"], div[id*="ads"], div[class*="overlay"], ' +
+			'header, #header, .header, img[src*="logo"], .brand, .menu, #menu, .logo, #logo, .navbar, .sidenav, nav, .nav, #nav, ' +
+			"ul, li, textarea, " +
+			'footer, div[id*="footer"], div[class*="footer"]'
+	};
 
-var replaces = {
-    items: [{
-        find: ".md",
-        replace: ""
-    }, {
-        find: "/small/",
-        replace: "/big/"
-    }, {
-        find: "thumb",
-        replace: "image"
-    }, {
-        find: "p.jpeg",
-        replace: ".jpeg"
-    }, {
-        find: "?fb",
-        replace: ""
-    }]
-};
+if (
+	href.lastIndexOf(host) + host.length - href.length == -1 ||
+	document.title.indexOf("Attention Required") != -1 ||
+	document.title.indexOf("Just a moment") != -1
+) {
+	return false;
+} else if (
+	document.images.length == 1 &&
+	document.images[0].src == window.location.href
+) {
+	return false;
+} else {
+	document.title = `ImageFork - ${host.toUpperCase()}`;
 
-var elemtntsToDeal = [
-    '#imagefork',
-    'input[type=submit]',
-    'meta[property*="og:image"]:not(meta[content*="logo"])',
-    'img[src*="' + host + '/uploads/big/"]',
-    'img[src*="' + host + '/upload/big/"]',
-    'img[src*="' + host + '/uploads/small/"]',
-    'img[src*="' + host + '/upload/small/"]',
-    'img[src*="' + host + '/img/"]',
-    'img[src*="' + host + '/images/"]',
-    'img[src*="' + host + '/wp-content/uploads/"]',
-    'img#iimg',
-    '#full_image',
-    'img#myImg',
-    '.centred',
-    '.centred_resized',
-    '#show_image',
-    '.code_image',
-    '#thepic',
-    'img#image',
-    'a:has(img#myUniqueImg)',
-    ".pic",
-    'input[type=submit][value*="continue"]',
-    'input[type=submit][value*="Continue"]',
-    'form input[type=submit][value*="continue"]',
-    'form input[type=submit][value*="Continue"]'
-];
+	var newhref = null;
 
-var elemtntsToRemove =
-    'script:not(script:contains("soDaBug")), noscript, iframe, frame, link, style, ' +
-    'div[class*="login"] form, div[id*="login"] form, ' +
-    '#popup, .ads, #ads, div[class*="ads"], div[class*="ad"], ' +
-    'header, #header, .header, img[src*="logo"], .brand, .menu, #menu, .logo, #logo, .navbar, .sidenav, nav, .nav, #nav, ' +
-    'ul, li, textarea, ' +
-    'footer, #footer, .footer, #foot';
+	for (var i = myObj.urlRedirects.length - 1; i >= 0; i--) {
+		if (myObj.urlRedirects[i].find.test(href)) {
+			newhref = href.replace(
+				myObj.urlRedirects[i].find,
+				myObj.urlRedirects[i].replace
+			);
+			break;
+		}
+	}
 
-if (href.lastIndexOf(host) + host.length - href.length == -1) {
-    return false;
-}
-
-if (document.images.length == 1 && document.images[0].src == window.location.href) {
-    if (autoResize) {
-        document.images[0].width = document.images[0].naturalWidth;
-        document.images[0].height = document.images[0].naturalHeight;
-    }
-    return false;
-}
-
-if (!iscontrolpage) {
-
-    document.title = "" == document.title ? "ImageFork" : document.title + " - ImageFork";
-
-    saveWebsiteToList();
-
-    for (var i = redirects.items.length - 1; i >= 0; i--) {
-        if (href.indexOf(redirects.items[i].find) > -1) {
-            window.stop();
-            var newhref = href.replace(redirects.items[i].find, redirects.items[i].replace);
-            if (redirects.items[i].hasOwnProperty("append")) {
-                newhref = newhref + redirects.items[i].append;
-            }
-            if (redirects.items[i].hasOwnProperty("prepend")) {
-                newhref = redirects.items[i].prepend + newhref;
-            }
-            window.location.assign(newhref);
-            return;
-        }
-    }
-
-    observer.observe(document, mutationObserver_Config);
-
-    GM_registerMenuCommand("Config ImageFork", openConfig, "c");
-
-    document.addEventListener('beforeload', function(event) {
-        cleanDOM();
-    }, true);
-
-    window.addEventListener('beforescriptexecute', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        $(e.target).remove();
-        cleanDOM();
-    }, true);
-
-}
-
-if (iscontrolpage) {
-
-    $(function() {
-
-        $('#install-alert').toggleClass('d-none');
-        $('#config-content').toggleClass('d-none');
-
-        var log = GM_getValue(key_siteLog, '\n');
-        $('textarea').val(log.slice(1, log.length));
-
-        $('#autoresize').attr("checked", GM_getValue(key_autoResize, false));
-
-        $('#clearsiteslog').click(function(event) {
-            $('textarea').val('');
-            GM_setValue(key_siteLog, '');
-            alert("Cleared!");
-        });
-
-        $('#copysiteslog').click(function(event) {
-            GM_setClipboard($("textarea").val(), 'text');
-        });
-
-        $('#autoresize').change(function(event) {
-            GM_setValue(key_autoResize, $(this).is(':checked'));
-        });
-
-    });
-
-}
-
-function open(url) {
-    for (var i = replaces.items.length - 1; i >= 0; i--) {
-        url = url.replace(replaces.items[i].find, replaces.items[i].replace);
-    }
-    window.location.assign(url);
-}
-
-function saveWebsiteToList() {
-    var list = GM_getValue(key_siteLog, '');
-    if (list.indexOf(host) != -1) {
-        return;
-    }
-    list = list + '\n' + host;
-    GM_setValue(key_siteLog, list);
-}
-
-
-function openConfig() {
-    window.open("https://plsankar1996.github.io/ImageFork/config.html");
+	if (newhref) {
+		stopWindow();
+		window.location.href = newhref;
+	} else {
+		observer.observe(document, {
+			childList: !0,
+			subtree: !0
+		});
+		document.addEventListener("beforeload", beforeload, true);
+		window.addEventListener("beforescriptexecute", beforescriptexecute, true);
+	}
 }
 
 function onDOMChange(mutations) {
+	cleanDOM();
 
-    cleanDOM();
+	var a = 0;
 
-    for (var i = elemtntsToDeal.length - 1; i >= 0; i--) {
-        var el = $(elemtntsToDeal[i]);
-        if (el.length) {
-            if (el.is('img')) {
-                observer.disconnect();
-                window.stop();
-                open(el.attr('src'));
-            } else if (el.is('a')) {
-                observer.disconnect();
-                window.stop();
-                open(el.attr('href'));
-            } else if (el.is('input')) {
-                observer.disconnect();
-                window.stop();
-                el.click();
-            } else if (el.is('meta')) {
-                observer.disconnect();
-                window.stop();
-                open(el.attr('content'));
-            } else {
-                continue;
-            }
-            break;
-        }
-    }
+	mutations.forEach(function (mutation) {
+		a += mutation.addedNodes.length;
+	});
 
-    pixsense_img();
+	if (a == 0) {
+		return;
+	}
+
+	for (var i = myObj.elemtntsToDeal.length - 1; i >= 0; i--) {
+		var el = $(myObj.elemtntsToDeal[i]);
+		console.log("Serching " + myObj.elemtntsToDeal[i]);
+		if (el.length) {
+			console.log("Found " + myObj.elemtntsToDeal[i]);
+			if (el.is("img")) {
+				openImage(makeImageBigger(el.attr("src")));
+			} else if (el.is("a")) {
+				openImage(makeImageBigger(el.attr("href")));
+			} else if (el.is("input")) {
+				stopWindow();
+				el.click();
+			} else if (el.is("meta")) {
+				openImage(makeImageBigger(el.attr("content")));
+			} else if (el.is('script:contains("soDaBug")')) {
+				openImage(
+					makeImageBigger(
+						el
+							.text()
+							.replace(/(?:.*)(?:\.src =\ ")(.*)(?:\"\;)(?:.*)/gims, "$1")
+					)
+				);
+			} else {
+				continue;
+			}
+			break;
+		}
+	}
 }
 
+function makeImageBigger(url) {
+	for (var i = myObj.imgReplaces.length - 1; i >= 0; i--) {
+		if (myObj.imgReplaces[i].find.test(url)) {
+			url = url.replace(
+				myObj.imgReplaces[i].find,
+				myObj.imgReplaces[i].replace
+			);
+			break;
+		}
+	}
+	return url;
+}
 
+function openImage(url) {
+	stopWindow();
+	window.location.href = url;
+}
+
+function stopWindow() {
+	document.removeEventListener("beforeload", beforeload);
+	window.removeEventListener("beforescriptexecute", beforescriptexecute);
+	observer.disconnect();
+	window.stop();
+}
 
 function cleanDOM() {
-    $(elemtntsToRemove).remove();
+	$(myObj.elemtntsToRemove).remove();
 }
 
-function pixsense_img() {
-    if (0 === $("img#imagefork").length) {
-        var a = $('script:contains("soDaBug")');
-        if (a.length) {
-            var b = a.text();
-            b = (b.slice(b.lastIndexOf('").src = "'), b.indexOf('";'))).replace('").src = "', '');
-            $(document.body).append('<img id="imagefork" src="' + b + '"></img>');
-        }
-    }
+function beforeload(e) {
+	cleanDOM();
+}
+
+function beforescriptexecute(e) {
+	e.stopPropagation();
+	e.preventDefault();
+	$(e.target).remove();
+	cleanDOM();
+}
+
+function qS(query) {
+	return document.querySelector(query);
 }

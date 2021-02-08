@@ -1,0 +1,8 @@
+# From browserslist defaults
+> 0.5%
+
+not unreleased versions
+
+# These browsers don't seem to have any way to run userscripts
+not iOS > 0
+not OperaMini all

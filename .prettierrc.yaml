@@ -1,0 +1,18 @@
+---
+# "always" - Always include parens. Example: (x) => x
+# "avoid" - Omit parens when possible. Example: x => x
+# arrowParens: avoid
+
+# true - Example: { foo: bar }.
+# false - Example: {foo: bar}.
+bracketSpacing: false
+
+# By default, Prettier will wrap markdown text as-is since some services use a
+# linebreak-sensitive renderer, e.g. GitHub comment and BitBucket. In some cases
+#  you may want to rely on editor/viewer soft wrapping instead, so this option
+# allows you to opt out with "never".
+# "always" - Wrap prose if it exceeds the print width.
+proseWrap: always
+
+# singleQuote: true
+trailingComma: none
